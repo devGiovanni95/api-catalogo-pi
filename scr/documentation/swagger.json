@@ -1,0 +1,82 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title": "API Catálogo de produtos",
+        "description": "This Api have with goal to create, to delete, to updade, to read informations from database in our interdisciplinary project with orientation of the teacher Felipe",
+        "termsOfService":"http://localhost:3000/terms",
+        "contact":{
+            "name":"Api-Catalogo",
+            "email":"equipe-catalogo@hotmail.com"
+    },
+    "version":"1.0.0"
+    },
+    "servers":[
+        {"url":"http://localhost:3000","description":"Api de teste"}
+    ],
+    "paths":{   
+        "/product":{
+            "post":{
+                "tags":["Product"],
+                "summary":"Create a new product",
+                "description": "Responsible for to create a new product in database",
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schemas/Product"
+                            },
+                            "examples": {
+                                "product": {
+                                    "value": {
+                                        "name":"Caneca",
+                                        "description":"Caneca personalizada",
+                                        "color":"Blue",
+                                        "expiration_date":"2023-09-09T20:08:39.687Z",
+                                        "price": "10",
+                                        "category": 2
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400":{
+                        "description": "Lack attributes"
+                    },
+                    "201":{
+                        "description": "Ok",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"                                                      
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product":{
+                "type": "object",
+                "properties":{
+                    "id":{"type":"integer"},
+                    "name":{"type":"string"},
+                    "description":{"type": "string"},
+                    "color":{"type": "string"},
+                    "expiration_date": {"type": "date"},
+                    "price":{"type":"number"},
+                    "category":{"type": "object"}
+
+                }
+            }
+
+
+        }
+    }
+
+}

@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import dataBase from './database/ormconfig'
 import cors from 'cors'
 import routes from './routes'
+import swaggagerUi from 'swagger-ui-express'
 import swaggerDocs from './documentation/swagger.json'
 
 
@@ -15,6 +16,7 @@ app.use(cors({
   }))
 
 app.use(express.json())
+app.use('/api-docs', swaggagerUi.serve, swaggagerUi.setup(swaggerDocs))
 app.use(routes)
 
 app.listen(port, () => {
