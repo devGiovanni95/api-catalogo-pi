@@ -57,7 +57,347 @@
                     }
                 }
             }
+        },
+        "/product/{id}":{
+            "get":{ 
+                "description": "Responsible for to find a product in database",
+                "summary":"Find a product by id",
+                "tags":["Product"],
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description": "Id the product for query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                              
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "description": "Responsible for update a product in database by id",
+                "summary":"Update a product by id",
+                "tags":["Product"],
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description": "Id the product for query",
+                        "required": true
+                    }
+                ],   
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schemas/Product"
+                            },
+                            "examples": {
+                                "product": {
+                                    "value": {
+                                        "name":"Caneca",
+                                        "description":"Caneca personalizada",
+                                        "color":"Blue",
+                                        "expiration_date":"2023-09-09T20:08:39.687Z",
+                                        "price": "10",
+                                        "category": 2
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                              
+                            }
+                        }
+                    }
+                }             
+            }
+        },
+
+            
+
+
+
+            
+  
+"/category":{
+    "post":{
+        "tags":["Category"],
+        "summary":"Create a new category",
+        "description": "Responsible for to create a new category in database",
+        "requestBody":{
+            "content": {
+                "application/json":{
+                    "schema":{
+                        "$ref": "#/components/schemas/Category"
+                    },
+                    "examples": {
+                        "product": {
+                            "value": {
+                                "name":"Caneca",
+                                "description":"Caneca personalizada",
+                                "color":"Blue",
+                                "expiration_date":"2023-09-09T20:08:39.687Z",
+                                "price": "10",
+                                "category": 2
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "400":{
+                "description": "Lack attributes"
+            },
+            "201":{
+                "description": "Ok",
+                "content": {
+                    "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "$ref": "#/components/schemas/Category"                                                      
+                        }
+                    }
+                }
+            }
         }
+    }
+},
+"/category/{id}":{
+    "get":{ 
+        "description": "Responsible for to find a category in database",
+        "summary":"Find a category by id",
+        "tags":["Category"],
+        "parameters": [
+            {
+                "name":"id",
+                "in":"path",
+                "description": "Id the category for query",
+                "required": true
+            }
+        ],
+        "responses": {
+            "200":{
+                "description": "OK",
+                "content": {
+                    "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "$ref": "#/components/schemas/Category"
+                        }
+                      
+                    }
+                }
+            }
+        }
+    },
+    "put":{
+        "description": "Responsible for update a category in database by id",
+        "summary":"Update a category by id",
+        "tags":["Category"],
+        "parameters": [
+            {
+                "name":"id",
+                "in":"path",
+                "description": "Id the category for query",
+                "required": true
+            }
+        ],   
+        "requestBody":{
+            "content": {
+                "application/json":{
+                    "schema":{
+                        "$ref": "#/components/schemas/Category"
+                    },
+                    "examples": {
+                        "product": {
+                            "value": {
+                                "name":"Caneca",
+                                "description":"Caneca personalizada",
+                                "color":"Blue",
+                                "expiration_date":"2023-09-09T20:08:39.687Z",
+                                "price": "10",
+                                "category": 2
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200":{
+                "description": "OK",
+                "content": {
+                    "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "$ref": "#/components/schemas/Category"
+                        }
+                      
+                    }
+                }
+            }
+        }             
+    }
+
+
+},
+
+
+
+
+
+      
+    "/user":{
+        "post":{
+            "tags":["User"],
+            "summary":"Create a new user",
+            "description": "Responsible for to create a new user in database",
+            "requestBody":{
+                "content": {
+                    "application/json":{
+                        "schema":{
+                            "$ref": "#/components/schemas/User"
+                        },
+                        "examples": {
+                            "user": {
+                                "value": {
+                                    "name":"Caneca",
+                                    "description":"Caneca personalizada",
+                                    "color":"Blue",
+                                    "expiration_date":"2023-09-09T20:08:39.687Z",
+                                    "price": "10",
+                                    "category": 2
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "400":{
+                    "description": "Lack attributes"
+                },
+                "201":{
+                    "description": "Ok",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "$ref": "#/components/schemas/User"                                                      
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/user/{id}":{
+        "get":{ 
+            "description": "Responsible for to find a user in database",
+            "summary":"Find a user by id",
+            "tags":["User"],
+            "parameters": [
+                {
+                    "name":"id",
+                    "in":"path",
+                    "description": "Id the user for query",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200":{
+                    "description": "OK",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "$ref": "#/components/schemas/User"
+                            }
+                          
+                        }
+                    }
+                }
+            }
+        },
+        "put":{
+            "description": "Responsible for update a user in database by id",
+            "summary":"Update a user by id",
+            "tags":["User"],
+            "parameters": [
+                {
+                    "name":"id",
+                    "in":"path",
+                    "description": "Id the user for query",
+                    "required": true
+                }
+            ],   
+            "requestBody":{
+                "content": {
+                    "application/json":{
+                        "schema":{
+                            "$ref": "#/components/schemas/User"
+                        },
+                        "examples": {
+                            "user": {
+                                "value": {
+                                    "name":"Caneca",
+                                    "description":"Caneca personalizada",
+                                    "color":"Blue",
+                                    "expiration_date":"2023-09-09T20:08:39.687Z",
+                                    "price": "10",
+                                    "category": 2
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200":{
+                    "description": "OK",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "$ref": "#/components/schemas/User"
+                            }
+                          
+                        }
+                    }
+                }
+            }             
+        }
+    
+
+
+
+
+
+       
     },
     "components": {
         "schemas": {
@@ -79,4 +419,4 @@
         }
     }
 
-}
+}}
