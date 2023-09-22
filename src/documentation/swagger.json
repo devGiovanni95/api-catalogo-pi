@@ -11,7 +11,8 @@
     "version":"1.0.0"
     },
     "servers":[
-        {"url":"http://localhost:3000","description":"Api de teste"}
+        {"url":"http://localhost:3000","description":"Api de teste"},
+        {"url":"https://api-catalogo-pi.onrender.com","description":"Api de teste"}
     ],
     "paths":{   
         "/product":{
