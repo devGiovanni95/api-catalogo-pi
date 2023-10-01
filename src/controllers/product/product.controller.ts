@@ -47,6 +47,7 @@ export default class ProductController {
         return  res.status(400).json("Categoria não encontrada")
     }
 
+
     //const categoryId = new CategoryController();
     const product = new Product();
     product.name = name;
