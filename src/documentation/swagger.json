@@ -11,8 +11,7 @@
     "version":"1.0.0"
     },
     "servers":[
-        {"url":"http://localhost:3000","description":"Api de teste"},
-        {"url":"https://api-catalogo-pi.onrender.com","description":"Api de teste"}
+        {"url":"http://localhost:3000","description":"Api de teste"}
     ],
     "paths":{   
         "/product":{
@@ -45,6 +44,24 @@
                     "400":{
                         "description": "Lack attributes"
                     },
+                    "201":{
+                        "description": "Ok",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"                                                      
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get":{
+                "tags":["Product"],
+                "summary":"Find all products",
+                "description": "Responsible for to find all products in database",
+                "responses": {
                     "201":{
                         "description": "Ok",
                         "content": {
@@ -185,6 +202,23 @@
                 }
             }
         }
+    },  "get":{
+        "tags":["Category"],
+        "summary":"Find all categories",
+        "description": "Responsible for to find all categories in database",
+        "responses": {
+            "201":{
+                "description": "Ok",
+                "content": {
+                    "application/json":{
+                        "schema":{
+                            "type": "object",
+                            "$ref": "#/components/schemas/Category"                                                      
+                        }
+                    }
+                }
+            }
+        }
     }
 },
 "/category/{id}":{
@@ -309,6 +343,24 @@
                             "schema":{
                                 "type": "object",
                                 "$ref": "#/components/schemas/User"                                                      
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "get":{
+            "tags":["User"],
+            "summary":"Find all users",
+            "description": "Responsible for to find all users in database",
+            "responses": {
+                "201":{
+                    "description": "Ok",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "$ref": "#/components/schemas/Product"                                                      
                             }
                         }
                     }

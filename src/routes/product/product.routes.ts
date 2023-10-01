@@ -12,7 +12,8 @@ productRoutes.get('/:id', ProductController.findById)
 productRoutes.delete('/:id', ProductController.delete)
 productRoutes.put('/:id', ProductController.update)
 
-const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }])
+
+// const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }])
 productRoutes.post('/upload', upload.single("file"),(req, res) =>{return res.json(req.file?.filename)})
 
 export default productRoutes
