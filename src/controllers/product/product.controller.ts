@@ -151,3 +151,4 @@ export default class ProductController {
     return res.status(201).json(product);
   }
 }
+

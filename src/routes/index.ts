@@ -7,8 +7,8 @@ import AuthMiddLeware from "../middlewares/auth.middleware";
 
 const routes = Router();
 
-routes.use('/category', AuthMiddLeware, categoryRoutes)
-routes.use('/product', AuthMiddLeware, productRoutes)
+routes.use('/category', categoryRoutes)
+routes.use('/product', productRoutes)
 routes.use('/user', AuthMiddLeware, userRoutes)
 routes.use('/auth', authRoutes)
 
