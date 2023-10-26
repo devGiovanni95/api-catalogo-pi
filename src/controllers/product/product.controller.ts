@@ -4,6 +4,7 @@ import { Timestamp } from "typeorm";
 import Product from "../../models/product";
 import CategoryController from "../category/category.controller";
 import Category from "../../models/category";
+import Photos from "../../models/photo";
 
 export default class ProductController {
   static async store(req: Request, res: Response) {
@@ -47,8 +48,6 @@ export default class ProductController {
         return  res.status(400).json("Categoria não encontrada")
     }
 
-
-    //const categoryId = new CategoryController();
     const product = new Product();
     product.name = name;
     product.description = description;
@@ -58,15 +57,15 @@ export default class ProductController {
     const data = new Date();
     product.created_at = data;
     product.expiration_date = expiration_date;
-    product.category=category
-
+    product.category=category;
+    
     await product.save();
 
     return res.status(201).json(product);
   }
 
   static async findAll(req: Request, res: Response) {
-    const listProducts = await Product.find();
+    const listProducts = await Product.find({relations: ["category"]});
     return res.json(listProducts);
   }
 
@@ -140,6 +139,12 @@ export default class ProductController {
     }
 
     if (category) {
+      const categoryFind = await Category.findOneBy({id: category})
+  
+      if(!categoryFind){
+        return  res.status(400).send("Categoria inexistente")
+      }
+      
       product.category = category;
     }
 
@@ -148,7 +153,29 @@ export default class ProductController {
 
     await product.save();
 
-    return res.status(201).json(product);
+    return res.status(200).json(product);
   }
+
+  static async findByCategory(req: Request, res: Response) {
+    const {category}  = req.params;
+
+     const categoryId = Number(category);
+
+    if (!categoryId) {
+      return res.status(400).json({ error: "O código de categoria é obrigatório" });
+    }
+
+    const product = await Product.getRepository()
+          .createQueryBuilder()
+          .select()
+          .where("product.categoryId = :categoryId",{categoryId})
+          .getMany()
+    if(product.length == 0){
+      return res.status(200).json({ message: "Nenhum produto encontrado" });
+    }
+    return res.json(product);
+  }
+
+
 }
 
