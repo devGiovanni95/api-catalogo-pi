@@ -1,0 +1,15 @@
+<body>
+    <div id="redoc-container"></div>
+    <!-- <redoc spec-url='http://localhost:3000/swagger'></redoc> -->
+    <script src="https://cdn.jsdelivr.net/npm/redoc@2.0.0-rc.55/bundles/redoc.standalone.min.js"> </script>
+    <script src="https://cdn.jsdelivr.net/gh/wll8/redoc-try@1.4.8/dist/try.js"></script>
+    <script>
+      initTry({
+        openApi: `http://localhost:3000/swagger`,
+        redocOptions: {scrollYOffset: 50},
+        rightPanel:{
+            with:'60%'
+        }
+      })
+    </script>
+  </body>

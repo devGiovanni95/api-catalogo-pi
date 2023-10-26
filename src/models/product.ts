@@ -1,6 +1,8 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Category from "./category";
 import { timeStamp } from "console";
+import Photos from "./photo";
+import User from "./user";
 
 @Entity()
 export default class Product extends BaseEntity{
@@ -34,5 +36,14 @@ export default class Product extends BaseEntity{
 
     @ManyToOne(() => Category, (category) => category.products) // Define a relação muitos-para-um com a entidade Category
     category!: Category;
-    
+
+    @ManyToOne(() => User, (user) => user.products) // Define a relação muitos-para-um com a entidade Category
+    user!: User;
+
+    // @Column({default: ""})
+    // mainPhoto?: string;
+
+    @OneToMany(() => Photos, (photo) => photo.product) // Define a relação um-para-muitos com a entidade Photos
+    photo?: Photos[]; // Esta propriedade conterá a lista de fotos relacionados a esta categoria
+
 }
