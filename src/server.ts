@@ -11,7 +11,7 @@ const app = express()
 const port = process.env.PORT
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://api-catalogo-pi.onrender.com']
+    origin: ['http://localhost:3000', 'https://api-catalogo-pi.onrender.com','http://127.0.0.1:5174','http://127.0.0.1:5173']
   }))
 
 app.use(express.json())
