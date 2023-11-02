@@ -39,7 +39,12 @@
                                         "color":"Blue",
                                         "expiration_date":"2023-09-09T20:08:39.687Z",
                                         "price": "10",
-                                        "category": 2
+                                        "category": 2,
+                                        "photo1":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png",
+                                        "photo2":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png",
+                                        "photo3":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png",
+                                        "photo4":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png"
+                                        
                                     }
                                 }
                             }
@@ -162,8 +167,109 @@
                         }
                     }
                 }             
+            },
+
+            "delete":{ 
+                "description": "Responsible for to delete a product in database",
+                "summary":"Delete a product by id",
+                "tags":["Product"],
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description": "Id the product for query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                              
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+        },
+
+        "/photo/upload": {
+            "post": {
+              "description": "Responsible for saving a photo in Amazon S3 Bucket and returning a URL to access the photo.",
+              "summary": "Save an image in S3",
+              "tags": ["Upload"],
+              "requestBody": {
+                "content": {
+                  "multipart/form-data": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "file": {
+                          "type": "string",
+                          "format": "binary"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "400": {
+                  "description": "Lack attributes"
+                },
+                "201": {
+                  "description": "Ok",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/Category"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          
+ 
+        "/product/category/{category}":{
+            "get":{ 
+                "description": "Responsible for to find a product by category in database",
+                "summary":"Find a product by category",
+                "tags":["Product"],
+                "parameters": [
+                    {
+                        "name":"category",
+                        "in":"path",
+                        "description": "Id the category for query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }                              
+                            }
+                        }
+                    }
+                }
             }
         },
+
         "/category":{
             "post":{
                 "tags":["Category"],
@@ -181,10 +287,11 @@
                                 "$ref": "#/components/schemas/Category"
                             },
                             "examples": {
-                                "product": {
+                                "category": {
                                     "value": {
                                         "name": "Velas sem cheiro",
-                                        "description": "Velas sem cheiro"
+                                        "description": "Velas sem cheiro",
+                                        "photo":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png"
                                     }
                                 }
                             }
@@ -303,8 +410,36 @@
                         }
                     }
                 }             
+            },
+            "delete":{ 
+                "description": "Responsible for to delete a category in database",
+                "summary":"Delete a category by id",
+                "tags":["Category"],
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description": "Id the category for query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                              
+                            }
+                        }
+                    }
+                }
             }
-        },     
+        }, 
+
         "/user":{
             "post":{
                 "tags":["User"],
@@ -446,6 +581,33 @@
                         }
                     }
                 }             
+            },
+            "delete":{ 
+                "description": "Responsible for to delete a user in database",
+                "summary":"Delete a user by id",
+                "tags":["User"],
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description": "Id the user for query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "OK",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                              
+                            }
+                        }
+                    }
+                }
             }
         },
         "/auth":{
@@ -505,8 +667,18 @@
                         "properties":{
                         "id":{"type":"integer"},
                         "email":{"type":"string"},
-                        "password":{"type": "string"}
+                        "password":{"type": "string"},
+                        "photo1":{"type": "string"},
+                        "photo2":{"type": "string"},
+                        "photo3":{"type": "string"},
+                        "photo4":{"type": "string"} 
                     }}
+                }
+            },
+            "Photo":{
+                "type": "object",
+                "properties":{
+                    "file":{"type":"multipart/form-data"}
                 }
             },
             "User":{
@@ -521,8 +693,10 @@
                 "type": "object",
                 "properties":{
                     "id":{"type":"integer"},
-                    "email":{"type":"string"},
-                    "password":{"type": "string"}
+                    "name":{"type":"string"},
+                    "description":{"type": "string"},
+                    "photo":{"type": "string"},
+                    "products":{"type": "array"}
                 }
             },
             "Auth":{

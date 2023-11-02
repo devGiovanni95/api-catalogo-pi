@@ -4,7 +4,6 @@ import { Timestamp } from "typeorm";
 import Product from "../../models/product";
 import CategoryController from "../category/category.controller";
 import Category from "../../models/category";
-import Photos from "../../models/photo";
 
 export default class ProductController {
   static async store(req: Request, res: Response) {
@@ -13,6 +12,10 @@ export default class ProductController {
       description,
       price,
       color,
+      photo1,
+      photo2,
+      photo3,
+      photo4,
       promotion,
       expiration_date,
       category,
@@ -49,6 +52,23 @@ export default class ProductController {
     }
 
     const product = new Product();
+
+    if(photo1){
+      product.photo1 = photo1
+    }
+    
+    if(photo2){
+      product.photo2 = photo2
+    }
+
+    if(photo3){
+      product.photo3 = photo3
+    }
+
+    if(photo4){
+      product.photo4 = photo4
+    }
+
     product.name = name;
     product.description = description;
     product.price = price;
@@ -103,6 +123,10 @@ export default class ProductController {
       description,
       price,
       color,
+      photo1,
+      photo2,
+      photo3,
+      photo4,
       promotion,
       expiration_date,
       category,
@@ -128,6 +152,22 @@ export default class ProductController {
     }
     if (color) {
       product.color = color;
+    }
+
+    if(photo1){
+      product.photo1 = photo1
+    }
+    
+    if(photo2){
+      product.photo2 = photo2
+    }
+
+    if(photo3){
+      product.photo3 = photo3
+    }
+
+    if(photo4){
+      product.photo4 = photo4
     }
 
     if (promotion) {
