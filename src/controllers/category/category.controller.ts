@@ -5,7 +5,7 @@ import { Timestamp } from 'typeorm'
 export default class CategoryController {
 
   static async store (req: Request, res: Response) {
-    const { name, description } = req.body
+    const { name, description, photo } = req.body
 
     if (!name) {
       return res.status(400).json({ error: 'O nome é obrigatório' })
@@ -16,6 +16,11 @@ export default class CategoryController {
     }
 
     const category = new Category()
+
+    if(photo){
+      category.photo = photo
+    }
+
     category.name = name
     category.description = description
     const data = new Date();
@@ -45,7 +50,7 @@ export default class CategoryController {
 }
 
 
-static async delete (req: Request, res: Response) {
+  static async delete (req: Request, res: Response) {
   const { id } = req.params
 
   if(!id || isNaN(Number(id))) {
@@ -61,9 +66,9 @@ static async delete (req: Request, res: Response) {
   return res.status(204).json()
 }
 
-static async update (req: Request, res: Response) {
+  static async update (req: Request, res: Response) {
   const { id } = req.params
-  const { name, description } = req.body
+  const { name, description, photo } = req.body
 
   if(!id || isNaN(Number(id))) {
     return res.status(400).json({ error: 'O id é obrigatório' })
@@ -74,6 +79,10 @@ static async update (req: Request, res: Response) {
     return res.status(404).json({ error: 'Categoria não encontrada' })
   }
 
+  if(photo){
+    category.photo = photo
+  }
+
   category.name = name
   category.description = description
   const data = new Date();
@@ -81,6 +90,6 @@ static async update (req: Request, res: Response) {
 
   await category.save()
   return res.json(category)
-  }
+}
   
 }

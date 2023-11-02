@@ -13,6 +13,9 @@ export default class Category extends BaseEntity{
     @Column()
     description!: string
 
+    @Column()
+    photo?: string
+
     @CreateDateColumn()
     created_at!: Date;
     
