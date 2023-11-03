@@ -40,10 +40,10 @@
                                         "expiration_date":"2023-09-09T20:08:39.687Z",
                                         "price": "10",
                                         "category": 2,
-                                        "photo1":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png",
-                                        "photo2":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png",
-                                        "photo3":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png",
-                                        "photo4":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png"
+                                        "photo1":"https://pifatec.s3.us-east-2.amazonaws.com/image1.png",
+                                        "photo2":"https://pifatec.s3.us-east-2.amazonaws.com/image2.png",
+                                        "photo3":"https://pifatec.s3.us-east-2.amazonaws.com/image3.png",
+                                        "photo4":"https://pifatec.s3.us-east-2.amazonaws.com/image4.png"
                                         
                                     }
                                 }
@@ -291,7 +291,7 @@
                                     "value": {
                                         "name": "Velas sem cheiro",
                                         "description": "Velas sem cheiro",
-                                        "photo":"https://pifatec.s3.us-east-2.amazonaws.com/classificacao.png"
+                                        "photo":"https://pifatec.s3.us-east-2.amazonaws.com/image1.png"
                                     }
                                 }
                             }
@@ -389,7 +389,8 @@
                                 "category": {
                                     "value": {
                                         "name": "Velas a1",
-                                        "description": "Velas com cheiro"
+                                        "description": "Velas com cheiro",
+                                        "photo":"https://pifatec.s3.us-east-2.amazonaws.com/image1.png"
                                     }
                                 }
                             }
@@ -489,6 +490,11 @@
                 "tags":["User"],
                 "summary":"Find all users",
                 "description": "Responsible for to find all users in database",
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
                 "responses": {
                     "201":{
                         "description": "Ok",
@@ -508,6 +514,11 @@
             "get":{ 
                 "description": "Responsible for to find a user in database",
                 "summary":"Find a user by id",
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
                 "tags":["User"],
                 "parameters": [
                     {
@@ -585,6 +596,11 @@
             "delete":{ 
                 "description": "Responsible for to delete a user in database",
                 "summary":"Delete a user by id",
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
                 "tags":["User"],
                 "parameters": [
                     {
