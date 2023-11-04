@@ -21,7 +21,7 @@ export async function tratamento(req:any, res:any, next:any) {
         mimetype: req.files[i].mimetype,
         buffer: imgTratada,
     });
-    urlImagem = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}amazonaws.com/${req.files[i].originalname}`
+    urlImagem = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${req.files[i].originalname}`
     }
     next();
   }
@@ -37,7 +37,7 @@ export async function tratamento(req:any, res:any, next:any) {
         },
         (err:any, data:any) => {
             console.log(data);
-            urlImagem = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}amazonaws.com/${data.Key}`
+            urlImagem = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${data.Key}`
           if (err) {
             return console.log(err);
           }else{
