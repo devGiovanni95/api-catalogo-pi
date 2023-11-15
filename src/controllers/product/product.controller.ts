@@ -217,5 +217,20 @@ export default class ProductController {
   }
 
 
+
+
+  static async findProductByIdWithCategory(req: Request, res: Response) {
+    const { id } = req.params;
+    if (!id || isNaN(Number(id))) {
+      return res.status(400).json({ error: "O id é obrigatório" });
+    }
+    const resultado = await Product.getRepository()
+      .createQueryBuilder('product')
+      .innerJoinAndSelect('product.category', 'category')
+      .where('product.id = :id', { id })
+      .getOne();
+
+    return res.json(resultado);
+  }
 }
 

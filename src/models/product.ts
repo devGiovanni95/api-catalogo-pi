@@ -49,8 +49,8 @@ export default class Product extends BaseEntity{
     @ManyToOne(() => Category, (category) => category.products) // Define a relação muitos-para-um com a entidade Category
     category!: Category;
 
-    @ManyToOne(() => User, (user) => user.products) // Define a relação muitos-para-um com a entidade Category
-    user!: User;
+    // @ManyToOne(() => User, (user) => user.products) // Define a relação muitos-para-um com a entidade Category
+    // user!: User;
 
     // @OneToMany(() => Photos, (photo) => photo.product) // Define a relação um-para-muitos com a entidade Photos
     // photo?: Photos[]; // Esta propriedade conterá a lista de fotos relacionados a esta categoria

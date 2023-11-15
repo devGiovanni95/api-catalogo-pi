@@ -9,5 +9,6 @@ productRoutes.get('/:id', ProductController.findById)
 productRoutes.get('/category/:category', ProductController.findByCategory)
 productRoutes.delete('/:id', AuthMiddLeware, ProductController.delete)
 productRoutes.put('/:id', AuthMiddLeware, ProductController.update)
+productRoutes.get('/categoryproduct/:id', ProductController.findProductByIdWithCategory)
 
 export default productRoutes
