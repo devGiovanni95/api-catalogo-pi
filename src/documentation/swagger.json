@@ -172,6 +172,11 @@
             "delete":{ 
                 "description": "Responsible for to delete a product in database",
                 "summary":"Delete a product by id",
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
                 "tags":["Product"],
                 "parameters": [
                     {
@@ -444,6 +449,11 @@
             "delete":{ 
                 "description": "Responsible for to delete a category in database",
                 "summary":"Delete a category by id",
+                "security": [
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
                 "tags":["Category"],
                 "parameters": [
                     {
