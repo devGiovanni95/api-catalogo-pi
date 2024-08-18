@@ -12,6 +12,13 @@ export default class ProductController {
       name,
       email,
       password,
+      role,
+      phone,
+      address,
+      district,
+      city,
+      state,
+      country,
       created_at,
       updated_at
     } = req.body;
@@ -34,14 +41,54 @@ export default class ProductController {
       return res.status(400).json({ error: "O password é obrigatório" });
     }
 
+    //if (!role) {
+    //   return res.status(400).json({ error: "A Role é obrigatório" });
+    // }
+
+    //--
+    if (!phone) {
+      return res.status(400).json({ error: "O telefone é obrigatório" });
+    }
+
+    if (!address) {
+      return res.status(400).json({ error: "O endereço é obrigatório" });
+    }
+
+    if (!district) {
+      return res.status(400).json({ error: "O bairro é obrigatório" });
+    }
+
+    if (!city) {
+      return res.status(400).json({ error: "A cidade é obrigatório" });
+    }
+
+    if (!state) {
+      return res.status(400).json({ error: "O estado é obrigatório" });
+    }
+
+    if (!country) {
+      return res.status(400).json({ error: "O pais é obrigatório" });
+    }
+
+
    const hashPassword = await hash(password, 8) 
 
 
     const user = new User();
-
+    
+    if(role){
+      user.role = role;
+    }
+    
     user.name = name;
     user.email = email;
     user.password = hashPassword;
+    user.phone = phone;
+    user.address = address;
+    user.district = district;
+    user.city = city;
+    user.state = state;
+    user.country = country;
     const data = new Date();
     user.created_at = data;
 

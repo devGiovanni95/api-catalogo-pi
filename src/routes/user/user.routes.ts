@@ -4,7 +4,7 @@ import AuthMiddLeware from '../../middlewares/auth.middleware'
 
 const userRoutes = Router()
 
-userRoutes.post('/', AuthMiddLeware, UserController.store)
+userRoutes.post('/', UserController.store)
 userRoutes.get('/', AuthMiddLeware,UserController.findAll)
 userRoutes.get('/:id', AuthMiddLeware,UserController.findById)
 userRoutes.delete('/:id', AuthMiddLeware,UserController.delete)
