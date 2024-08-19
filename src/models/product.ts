@@ -3,6 +3,7 @@ import Category from "./category";
 import { timeStamp } from "console";
 // import Photos from "./photo";
 import User from "./user";
+import OrderItem from "./orderItem";
 
 @Entity()
 export default class Product extends BaseEntity{
@@ -48,6 +49,9 @@ export default class Product extends BaseEntity{
 
     @ManyToOne(() => Category, (category) => category.products) // Define a relação muitos-para-um com a entidade Category
     category!: Category;
+
+    @OneToMany(() => OrderItem, (orderItem) => orderItem.product) // Relacionamento um-para-muitos com OrderItem
+    orderItems?: OrderItem[];
 
     // @ManyToOne(() => User, (user) => user.products) // Define a relação muitos-para-um com a entidade Category
     // user!: User;

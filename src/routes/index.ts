@@ -6,6 +6,7 @@ import authRoutes from './authentication/authenticatio.routes';
 import swaggagerUi from 'swagger-ui-express'
 import swaggerDocs from './../documentation/swagger.json'
 import productPhotoRoutes from "./product/product.photo.routes";
+import orderRoutes from "./order/order.routes";
 // import photoRoutes from "./photo/photos.routes";
 
 const routes = Router();
@@ -14,6 +15,7 @@ routes.use('/category', categoryRoutes)
 routes.use('/product', productRoutes)
 routes.use('/user', userRoutes)
 routes.use('/auth', authRoutes)
+routes.use('/order', orderRoutes)
 routes.use('/photo', productPhotoRoutes)
 
 
