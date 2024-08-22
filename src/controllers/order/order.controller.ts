@@ -123,7 +123,7 @@ export default class OrderController {
 
   // Cria um novo pedido e seus itens
   static async store(req: Request, res: Response) {
-    const { userId, orderItems, status } = req.body;
+    const { userId, orderItems, status, deliveryDetails } = req.body;
 
     if (!userId || !orderItems || !Array.isArray(orderItems)) {
       return res.status(400).json({ error: 'O usuário e os itens do pedido são obrigatórios' });
@@ -136,9 +136,11 @@ export default class OrderController {
 
     const order = new Order();
     order.user = user;
+    order.phone = user.phone;
     order.status = status || 'pending';
     order.created_at = new Date();
     order.order_number = `ORD-${Date.now()}`; // Gerar número de pedido único
+    order.deliveryDetails = deliveryDetails || {}; 
 
     await order.save();
 
@@ -223,6 +225,8 @@ export default class OrderController {
     if (status) {
       order.status = status;
     }
+
+    
     order.updated_at = new Date();
 
     await order.save();

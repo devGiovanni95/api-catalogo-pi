@@ -19,4 +19,5 @@ export default class OrderItem extends BaseEntity {
 
     @Column()
     price!: number; // Preço do produto no momento do pedido (pode ser diferente do preço atual)
+    
 }

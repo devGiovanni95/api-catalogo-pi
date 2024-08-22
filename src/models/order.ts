@@ -10,6 +10,9 @@ export default class Order extends BaseEntity {
     id!: number;
 
     @Column()
+    phone?: string;
+
+    @Column()
     order_number!: string; // Número do pedido
 
     @CreateDateColumn()
@@ -26,4 +29,15 @@ export default class Order extends BaseEntity {
 
     @Column({ default: 'pending' })
     status?: string; // Status do pedido, por exemplo: 'pending', 'completed', 'shipped'
+
+    @Column("json", { nullable: true })
+    deliveryDetails?: {
+        address: string;
+        district: string;
+        city: string;
+        state: string;
+        country: string;
+    };
+
+
 }

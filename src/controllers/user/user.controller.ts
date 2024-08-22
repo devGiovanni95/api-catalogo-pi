@@ -5,6 +5,7 @@ import Product from "../../models/product";
 import CategoryController from "../category/category.controller";
 import User from "../../models/user";
 import { hash } from "bcryptjs";
+import { AddressDTO } from "../../dto";
 
 export default class ProductController {
   static async store(req: Request, res: Response) {
@@ -113,6 +114,30 @@ export default class ProductController {
       return res.status(400).json({ message: "Usuário não encontrado verifique o id digitado" });
     }
     return res.json(user);
+  }
+
+  static async findAddressById(req: Request, res: Response) {
+    const { id } = req.params;
+    const user = await User.findOneBy({ id: Number(id) });
+
+    if (!id || isNaN(Number(id))) {
+      return res.status(400).json({ error: "O id é obrigatório" });
+    }
+    
+    if(!user){
+      return res.status(400).json({ message: "Usuário não encontrado verifique o id digitado" });
+    }
+
+    if(user){
+      const addressDTO: AddressDTO = {
+        address: user.address,
+        district: user.district,
+        city: user.city,
+        state: user.state,
+        country: user.country,
+      };
+      return res.json(addressDTO);
+    }
   }
 
   static async delete(req: Request, res: Response) {
