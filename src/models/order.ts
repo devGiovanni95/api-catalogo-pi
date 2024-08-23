@@ -3,6 +3,16 @@ import User from "./user";
 import Product from "./product";
 import OrderItem from "./orderItem";
 
+// payment-method.enum.ts
+export enum PaymentMethod {
+    CREDIT_CARD = 'Cartão de credito',
+    DEBIT_CARD = 'Cartão de débito',
+    PIX = 'Pix',
+    BANK_TRANSFER = 'Transferencia bancaria',
+    CASH_ON_DELIVERY = 'Dinheiro'
+  }
+
+  
 @Entity()
 export default class Order extends BaseEntity {
     
@@ -29,6 +39,9 @@ export default class Order extends BaseEntity {
 
     @Column({ default: 'pending' })
     status?: string; // Status do pedido, por exemplo: 'pending', 'completed', 'shipped'
+
+    @Column()
+    method_payment!: string;
 
     @Column("json", { nullable: true })
     deliveryDetails?: {

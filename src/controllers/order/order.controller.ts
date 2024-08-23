@@ -114,20 +114,27 @@ export default class OrderController {
 */
 
 import { Request, Response } from 'express';
-import Order from '../../models/order';
+import Order, { PaymentMethod } from '../../models/order';
 import OrderItem from '../../models/orderItem';
 import User from '../../models/user';
 import Product from '../../models/product';
+const VALID_PAYMENT_METHODS = ['credit_card', 'debit_card', 'paypal', 'bank_transfer', 'cash_on_delivery'];
 
 export default class OrderController {
 
   // Cria um novo pedido e seus itens
   static async store(req: Request, res: Response) {
-    const { userId, orderItems, status, deliveryDetails } = req.body;
+    const { userId, orderItems, status, deliveryDetails, method_payment } = req.body;
 
     if (!userId || !orderItems || !Array.isArray(orderItems)) {
       return res.status(400).json({ error: 'O usuário e os itens do pedido são obrigatórios' });
     }
+
+      // Verificar se o método de pagamento é válido
+      if (! method_payment ) {
+        return res.status(400).json({ error: 'Método de pagamento não informado' });
+      }
+
 
     const user = await User.findOneBy({ id: userId });
     if (!user) {
@@ -141,6 +148,8 @@ export default class OrderController {
     order.created_at = new Date();
     order.order_number = `ORD-${Date.now()}`; // Gerar número de pedido único
     order.deliveryDetails = deliveryDetails || {}; 
+    order.method_payment = method_payment; // Define o método de pagamento
+
 
     await order.save();
 
