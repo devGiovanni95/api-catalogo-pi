@@ -24,7 +24,7 @@ routes.use('/api-docs', swaggagerUi.serve, swaggagerUi.setup(swaggerDocs))
 
 //rota do swagger 
 routes.get('/swagger', (request, response) => {
-    return response.sendFile(process.cwd() + "/src/documentation/swagger.json")
+    return response.sendFile(process.cwd() + "/src/documentation/swaggerv1.json")
 })
 
 routes.get('/docs', (request, response) => {

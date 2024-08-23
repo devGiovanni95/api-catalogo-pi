@@ -1,774 +1,992 @@
 {
-    "openapi":"3.0.0",
-    "info":{
-        "title": "API Catálogo de produtos",
-        "description": "This Api have with goal to create, to delete, to updade, to read informations from database in our interdisciplinary project with orientation of the teacher Felipe",
-        "termsOfService":"http://localhost:3000/terms",
-        "contact":{
-            "name":"Api-Catalogo",
-            "email":"equipe-catalogo@hotmail.com"
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API Catálogo de produtos",
+      "description": "This API has the goal to create, delete, update, and read information from the database in our interdisciplinary project with orientation of the teacher Felipe.",
+      "termsOfService": "http://localhost:3000/terms",
+      "contact": {
+        "name": "Api-Catalogo",
+        "email": "equipe-catalogo@hotmail.com"
+      },
+      "version": "1.0.0"
     },
-    "version":"1.0.0"
-    },
-    "servers":[
-        {"url":"https://api-catalogo-pi.onrender.com","description":"Api for production"},
-        {"url":"http://localhost:3000","description":"Api for test"}
+    "servers": [
+      {
+        "url": "https://api-catalogo-pi.onrender.com",
+        "description": "Api for production"
+      },
+      {
+        "url": "http://localhost:3000",
+        "description": "Api for test"
+      }
     ],
-    "paths":{   
-        "/product":{
-            "post":{
-                "tags":["Product"],
-                "summary":"Create a new product",
-                "description": "Responsible for to create a new product in database",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "requestBody":{
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "$ref": "#/components/schemas/Product"
-                            },
-                            "examples": {
-                                "product": {
-                                    "value": {
-                                        "name":"Caneca",
-                                        "description":"Caneca personalizada",
-                                        "color":"Blue",
-                                        "expiration_date":"2023-09-09T20:08:39.687Z",
-                                        "price": "10",
-                                        "category": 2,
-                                        "photo1":"https://pifatec.s3.us-east-2.amazonaws.com/image1.png",
-                                        "photo2":"https://pifatec.s3.us-east-2.amazonaws.com/image2.png",
-                                        "photo3":"https://pifatec.s3.us-east-2.amazonaws.com/image3.png",
-                                        "photo4":"https://pifatec.s3.us-east-2.amazonaws.com/image4.png"
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "400":{
-                        "description": "Lack attributes"
-                    },
-                    "201":{
-                        "description": "Ok",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Product"                                                      
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "get":{
-                "tags":["Product"],
-                "summary":"Find all products",
-                "description": "Responsible for to find all products in database",
-                "responses": {
-                    "201":{
-                        "description": "Ok",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Product"                                                      
-                                }
-                            }
-                        }
-                    }
-                }
+    "paths": {
+      "/product": {
+        "post": {
+          "tags": ["Product"],
+          "summary": "Create a new product",
+          "description": "Responsible for creating a new product in the database",
+          "security": [
+            {
+              "bearerAuth": []
             }
-        },
-        "/product/{id}":{
-            "get":{ 
-                "description": "Responsible for to find a product in database",
-                "summary":"Find a product by id",
-                "tags":["Product"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the product for query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Product"
-                                }
-                              
-                            }
-                        }
-                    }
-                }
-            },
-            "put":{
-                "description": "Responsible for update a product in database by id",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "summary":"Update a product by id",
-                "tags":["Product"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the product for query",
-                        "required": true
-                    }
-                ],   
-                "requestBody":{
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "$ref": "#/components/schemas/Product"
-                            },
-                            "examples": {
-                                "product": {
-                                    "value": {
-                                        "name":"Caneca",
-                                        "description":"Caneca personalizada",
-                                        "color":"Blue",
-                                        "expiration_date":"2023-09-09T20:08:39.687Z",
-                                        "price": "10",
-                                        "category": 2
-                                    }
-                                }
-                            }
-                        }
-                    }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
                 },
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Product"
-                                }
-                              
-                            }
-                        }
-                    }
-                }             
-            },
-
-            "delete":{ 
-                "description": "Responsible for to delete a product in database",
-                "summary":"Delete a product by id",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "tags":["Product"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the product for query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Product"
-                                }
-                              
-                            }
-                        }
-                    }
-                }
-            }
-
-
-
-        },
-        "/product/categoryproduct/{id}":{
-            "get":{ 
-                "description": "Responsible for to find a product and your relations in database",
-                "summary":"Find a product by id",
-                "tags":["Product"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the product for query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Product"
-                                }
-                              
-                            }
-                        }
-                    }
-                }
-            }
-        },
-
-        "/photo/upload": {
-            "post": {
-              "description": "Responsible for saving a photo in Amazon S3 Bucket and returning a URL to access the photo.",
-              "summary": "Save an image in S3",
-              "tags": ["Upload"],
-              "requestBody": {
-                "content": {
-                  "multipart/form-data": {
-                    "schema": {
-                      "type": "object",
-                      "properties": {
-                        "file": {
-                          "type": "string",
-                          "format": "binary"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "responses": {
-                "400": {
-                  "description": "Lack attributes"
-                },
-                "201": {
-                  "description": "Ok",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "type": "object",
-                        "$ref": "#/components/schemas/Category"
-                      }
+                "examples": {
+                  "product": {
+                    "value": {
+                      "name": "Caneca",
+                      "description": "Caneca personalizada",
+                      "color": "Blue",
+                      "expiration_date": "2023-09-09T20:08:39.687Z",
+                      "price": 10,
+                      "category": 2,
+                      "photo1": "https://pifatec.s3.us-east-2.amazonaws.com/image1.png",
+                      "photo2": "https://pifatec.s3.us-east-2.amazonaws.com/image2.png",
+                      "photo3": "https://pifatec.s3.us-east-2.amazonaws.com/image3.png",
+                      "photo4": "https://pifatec.s3.us-east-2.amazonaws.com/image4.png"
                     }
                   }
                 }
               }
             }
           },
-          
- 
-        "/product/category/{category}":{
-            "get":{ 
-                "description": "Responsible for to find a product by category in database",
-                "summary":"Find a product by category",
-                "tags":["Product"],
-                "parameters": [
-                    {
-                        "name":"category",
-                        "in":"path",
-                        "description": "Id the category for query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Product"
-                                }                              
-                            }
-                        }
-                    }
+          "responses": {
+            "400": {
+              "description": "Lack attributes"
+            },
+            "201": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Product"
+                  }
                 }
+              }
             }
+          }
         },
-
-        "/category":{
-            "post":{
-                "tags":["Category"],
-                "summary":"Create a new category",
-                "description": "Responsible for to create a new category in database",
-                "security": [
-                    {
-                        "bearerAuth":[]
+        "get": {
+          "tags": ["Product"],
+          "summary": "Find all products",
+          "description": "Responsible for finding all products in the database",
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Product"
                     }
-                ],
-                "requestBody":{
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "$ref": "#/components/schemas/Category"
-                            },
-                            "examples": {
-                                "category": {
-                                    "value": {
-                                        "name": "Velas sem cheiro",
-                                        "description": "Velas sem cheiro",
-                                        "photo":"https://pifatec.s3.us-east-2.amazonaws.com/image1.png"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "400":{
-                        "description": "Lack attributes"
-                    },
-                    "201":{
-                        "description": "Ok",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Category"                                                      
-                                }
-                            }
-                        }
-                    }
+                  }
                 }
-            }, 
-             "get":{
-                "tags":["Category"],
-                "summary":"Find all categories",
-                "description": "Responsible for to find all categories in database",
-                "responses": {
-                    "201":{
-                        "description": "Ok",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Category"                                                      
-                                }
-                            }
-                        }
-                    }
-                }
+              }
             }
-        },
-        "/category/{id}":{
-            "get":{ 
-                "description": "Responsible for to find a category in database",
-                "summary":"Find a category by id",
-                "tags":["Category"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the category for query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Category"
-                                }
-                            
-                            }
-                        }
-                    }
-                }
-            },
-            "put":{
-                "description": "Responsible for update a category in database by id",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "summary":"Update a category by id",
-                "tags":["Category"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the category for query",
-                        "required": true
-                    }
-                ],   
-                "requestBody":{
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "$ref": "#/components/schemas/Category"
-                            },
-                            "examples": {
-                                "category": {
-                                    "value": {
-                                        "name": "Velas a1",
-                                        "description": "Velas com cheiro",
-                                        "photo":"https://pifatec.s3.us-east-2.amazonaws.com/image1.png"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Category"
-                                }
-                            
-                            }
-                        }
-                    }
-                }             
-            },
-            "delete":{ 
-                "description": "Responsible for to delete a category in database",
-                "summary":"Delete a category by id",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "tags":["Category"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the category for query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Product"
-                                }
-                              
-                            }
-                        }
-                    }
-                }
-            }
-        }, 
-
-        "/user":{
-            "post":{
-                "tags":["User"],
-                "summary":"Create a new user",
-                "description": "Responsible for to create a new user in database",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "requestBody":{
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "$ref": "#/components/schemas/User"
-                            },
-                            "examples": {
-                                "user": {
-                                    "value": {
-                                        "name":"Administrator",
-                                        "email":"admin@admin.com",
-                                        "password":"123456"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "400":{
-                        "description": "Lack attributes"
-                    },
-                    "201":{
-                        "description": "Ok",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/User"                                                      
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "get":{
-                "tags":["User"],
-                "summary":"Find all users",
-                "description": "Responsible for to find all users in database",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "responses": {
-                    "201":{
-                        "description": "Ok",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/User"                                                      
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/user/{id}":{
-            "get":{ 
-                "description": "Responsible for to find a user in database",
-                "summary":"Find a user by id",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "tags":["User"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the user for query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            
-                            }
-                        }
-                    }
-                }
-            },
-            "put":{
-                "description": "Responsible for update a user in database by id",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "summary":"Update a user by id",
-                "tags":["User"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the user for query",
-                        "required": true
-                    }
-                ],   
-                "requestBody":{
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "$ref": "#/components/schemas/User"
-                            },
-                            "examples": {
-                                "user": {
-                                    "value": {
-                                        "name":"Administrator",
-                                        "email":"admin@hotmail.com",
-                                        "password":"1234"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/User"
-                                }
-                            
-                            }
-                        }
-                    }
-                }             
-            },
-            "delete":{ 
-                "description": "Responsible for to delete a user in database",
-                "summary":"Delete a user by id",
-                "security": [
-                    {
-                        "bearerAuth":[]
-                    }
-                ],
-                "tags":["User"],
-                "parameters": [
-                    {
-                        "name":"id",
-                        "in":"path",
-                        "description": "Id the user for query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "OK",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Product"
-                                }
-                              
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/auth":{
-            "post":{
-                "tags":["Auth"],
-                "summary":"Create a new token to access",
-                "description": "Responsible for to create a token for authenticate users",
-                "requestBody":{
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "$ref": "#/components/schemas/User"
-                            },
-                            "examples": {
-                                "user": {
-                                    "value": {
-                                        "email":"admin@admin.com",
-                                        "password":"123456"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "401":{
-                        "description": "Unautorized"
-                    },
-                    "201":{
-                        "description": "Ok",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Auth"                                                      
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+          }
         }
+      },
+      "/product/{id}": {
+        "get": {
+          "description": "Responsible for finding a product in the database",
+          "summary": "Find a product by id",
+          "tags": ["Product"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the product for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "description": "Responsible for updating a product in the database by id",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "summary": "Update a product by id",
+          "tags": ["Product"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the product for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                },
+                "examples": {
+                  "product": {
+                    "value": {
+                      "name": "Caneca",
+                      "description": "Caneca personalizada",
+                      "color": "Blue",
+                      "expiration_date": "2023-09-09T20:08:39.687Z",
+                      "price": 10,
+                      "category": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "description": "Responsible for deleting a product in the database",
+          "summary": "Delete a product by id",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "tags": ["Product"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the product for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No Content"
+            }
+          }
+        }
+      },
+      "/product/categoryproduct/{id}": {
+        "get": {
+          "description": "Responsible for finding a product and its relations in the database",
+          "summary": "Find a product by id",
+          "tags": ["Product"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the product for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/product/category/{category}": {
+        "get": {
+          "description": "Responsible for finding a product by category in the database",
+          "summary": "Find a product by category",
+          "tags": ["Product"],
+          "parameters": [
+            {
+              "name": "category",
+              "in": "path",
+              "description": "Id of the category for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Product"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/category": {
+        "post": {
+          "tags": ["Category"],
+          "summary": "Create a new category",
+          "description": "Responsible for creating a new category in the database",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                },
+                "examples": {
+                  "category": {
+                    "value": {
+                      "name": "Velas sem cheiro",
+                      "description": "Velas sem cheiro",
+                      "photo": "https://pifatec.s3.us-east-2.amazonaws.com/image1.png"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "400": {
+              "description": "Lack attributes"
+            },
+            "201": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": ["Category"],
+          "summary": "Find all categories",
+          "description": "Responsible for finding all categories in the database",
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/category/{id}": {
+        "get": {
+          "description": "Responsible for finding a category in the database",
+          "summary": "Find a category by id",
+          "tags": ["Category"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the category for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "description": "Responsible for updating a category in the database by id",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "summary": "Update a category by id",
+          "tags": ["Category"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the category for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                },
+                "examples": {
+                  "category": {
+                    "value": {
+                      "name": "Velas a1",
+                      "description": "Velas com cheiro",
+                      "photo": "https://pifatec.s3.us-east-2.amazonaws.com/image1.png"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "description": "Responsible for deleting a category in the database",
+          "summary": "Delete a category by id",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "tags": ["Category"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the category for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No Content"
+            }
+          }
+        }
+      },
+      "/user": {
+        "post": {
+          "tags": ["User"],
+          "summary": "Create a new user",
+          "description": "Responsible for creating a new user in the database",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "name": "Administrator",
+                      "email": "admin@admin.com",
+                      "password": "123456"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "400": {
+              "description": "Lack attributes"
+            },
+            "201": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": ["User"],
+          "summary": "Find all users",
+          "description": "Responsible for finding all users in the database",
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/user/{id}": {
+        "get": {
+          "description": "Responsible for finding a user in the database",
+          "summary": "Find a user by id",
+          "tags": ["User"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the user for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "description": "Responsible for updating a user in the database by id",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "summary": "Update a user by id",
+          "tags": ["User"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the user for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "name": "Admin",
+                      "email": "admin@admin.com",
+                      "password": "654321"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "description": "Responsible for deleting a user in the database",
+          "summary": "Delete a user by id",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "tags": ["User"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id of the user for query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No Content"
+            }
+          }
+        }
+      },
+      "/order": {
+        "post": {
+          "tags": ["Order"],
+          "summary": "Create a new order",
+          "description": "Creates a new order and its items",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                },
+                "examples": {
+                  "order": {
+                    "value": {
+                      "userId": 1,
+                      "orderItems": [
+                        {
+                          "productId": 10,
+                          "quantity": 2,
+                          "price": 25
+                        }
+                      ],
+                      "status": "pending",
+                      "deliveryDetails": {
+                        "address": "Rua das Flores, 123",
+                        "city": "São Paulo",
+                        "postalCode": "12345-678"
+                      },
+                      "method_payment": "credit_card"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "400": {
+              "description": "Lack attributes or invalid payment method"
+            },
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": ["Order"],
+          "summary": "Find all orders",
+          "description": "Finds all orders with their items and user details",
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Order"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/order/{id}": {
+        "get": {
+          "description": "Find an order by ID",
+          "summary": "Find an order by ID",
+          "tags": ["Order"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of the order",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Order not found"
+            }
+          }
+        },
+        "put": {
+          "description": "Update an order by ID",
+          "summary": "Update the status of an order",
+          "tags": ["Order"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of the order",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderUpdate"
+                },
+                "examples": {
+                  "orderUpdate": {
+                    "value": {
+                      "status": "completed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Ok",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Order not found"
+            }
+          }
+        },
+        "delete": {
+          "description": "Delete an order by ID",
+          "summary": "Delete an order",
+          "tags": ["Order"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of the order",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No Content"
+            },
+            "404": {
+              "description": "Order not found"
+            }
+          }
+        }
+      }
     },
     "components": {
-        "schemas": {
-            "Product":{
-                "type": "object",
-                "properties":{
-                    "id":{"type":"integer"},
-                    "name":{"type":"string"},
-                    "description":{"type": "string"},
-                    "color":{"type": "string"},
-                    "expiration_date": {"type": "date"},
-                    "price":{"type":"number"},
-                    "category":{
-                        "type": "object",
-                        "properties":{
-                        "id":{"type":"integer"},
-                        "email":{"type":"string"},
-                        "password":{"type": "string"},
-                        "photo1":{"type": "string"},
-                        "photo2":{"type": "string"},
-                        "photo3":{"type": "string"},
-                        "photo4":{"type": "string"} 
-                    }}
-                }
+      "schemas": {
+        "Product": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
             },
-            "Photo":{
-                "type": "object",
-                "properties":{
-                    "file":{"type":"multipart/form-data"}
-                }
+            "name": {
+              "type": "string"
             },
-            "User":{
-                "type": "object",
-                "properties":{
-                    "id":{"type":"integer"},
-                    "email":{"type":"string"},
-                    "password":{"type": "string"}
-                }
+            "description": {
+              "type": "string"
             },
-            "Category":{
-                "type": "object",
-                "properties":{
-                    "id":{"type":"integer"},
-                    "name":{"type":"string"},
-                    "description":{"type": "string"},
-                    "photo":{"type": "string"},
-                    "products":{"type": "array"}
-                }
+            "color": {
+              "type": "string"
             },
-            "Auth":{
-                "type": "object",
-                "properties":{
-                    "email":{"type":"string"},
-                    "password":{"type": "string"}
-                }
+            "expiration_date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "price": {
+              "type": "number",
+              "format": "float"
+            },
+            "category": {
+              "type": "integer"
+            },
+            "photo1": {
+              "type": "string",
+              "format": "uri"
+            },
+            "photo2": {
+              "type": "string",
+              "format": "uri"
+            },
+            "photo3": {
+              "type": "string",
+              "format": "uri"
+            },
+            "photo4": {
+              "type": "string",
+              "format": "uri"
             }
+          },
+          "required": [
+            "name",
+            "description",
+            "price",
+            "category"
+          ]
         },
-        "securitySchemes":{
-            "bearerAuth":{
-                "description":"Authentication with JWT",
-                "type":"http",
-                "scheme":"bearer",
-                "bearerFormat":"JWT"
+        "Category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "photo": {
+              "type": "string",
+              "format": "uri"
             }
+          },
+          "required": [
+            "name",
+            "description"
+          ]
+        },
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "password": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "password"
+          ]
+        },
+        "Order": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "userId": {
+              "type": "integer"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "order_number": {
+              "type": "string"
+            },
+            "deliveryDetails": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "postalCode": {
+                  "type": "string"
+                }
+              }
+            },
+            "method_payment": {
+              "type": "string",
+              "enum": [
+                "credit_card",
+                "debit_card",
+                "paypal"
+              ]
+            },
+            "orderItems": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/OrderItem"
+              }
+            }
+          },
+          "required": [
+            "userId",
+            "status"
+          ]
+        },
+        "OrderItem": {
+          "type": "object",
+          "properties": {
+            "productId": {
+              "type": "integer"
+            },
+            "quantity": {
+              "type": "integer"
+            },
+            "price": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "required": [
+            "productId",
+            "quantity",
+            "price"
+          ]
+        },
+        "OrderUpdate": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ]
         }
+      },
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
     }
-}
+  }
+  
