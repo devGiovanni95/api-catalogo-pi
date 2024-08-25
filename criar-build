@@ -1,0 +1,2 @@
+docker build . -t djeu95/api-catalogo-pi:4.00
+docker run -p 3000:3000 djeu95/api-catalogo-pi:4.00
