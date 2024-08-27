@@ -75,7 +75,7 @@ export default class OrderController {
 
   // Retorna todos os pedidos com detalhes dos itens
   static async findAll(req: Request, res: Response) {
-    const orders = await Order.find({ relations: ['user.id', 'orderItems', 'orderItems.product'] });
+    const orders = await Order.find({ relations: ['user', 'orderItems', 'orderItems.product'] });
     return res.json(orders);
   }
 
