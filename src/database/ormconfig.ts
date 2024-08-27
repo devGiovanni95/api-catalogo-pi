@@ -7,7 +7,8 @@ dotenv.config();
 
 const dataBase = new DataSource({
     type: 'sqlite',
-    database: process.env.DATABASE || './dist/database/database.sqlite',
+    database: process.env.DATABASE || './src/database/database.sqlite',
+//    database: process.env.DATABASE || './dist/database/database.sqlite',    
     entities: [
       join(__dirname, '..', 'models/*.{ts,js}')
     ],

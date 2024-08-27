@@ -1,2 +1,9 @@
 docker build . -t djeu95/api-catalogo-pi:4.00
 docker run -p 3000:3000 djeu95/api-catalogo-pi:4.00
+docker run -m 300mb --memory-swap 3g -p 3000:3000 djeu95/api-catalogo-pi:4.00
+docker run -m 300m -p 3000:3000 djeu95/api-catalogo-pi:4.00
+
+esse deu certo 
+docker run -m 2g -p 3000:3000 djeu95/api-catalogo-pi:4.00
+
+docker run -d -m 2g -p 3000:3000 djeu95/api-catalogo-pi:4.00

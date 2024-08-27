@@ -12,7 +12,7 @@
     },
     "servers": [
       {
-        "url": "https://api-catalogo-pi.onrender.com",
+        "url": "https://api-catalogo-pi-1.onrender.com",
         "description": "Api for production"
       },
       {
