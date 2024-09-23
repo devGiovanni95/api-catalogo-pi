@@ -6,6 +6,7 @@ const orderRoutes = Router()
 
 orderRoutes.post('/', OrderController.store)
 orderRoutes.get('/', OrderController.findAll)
+orderRoutes.get('/user/:userId', OrderController.findAllByUser)
 orderRoutes.get('/:id', OrderController.findById)
 orderRoutes.put('/:id', OrderController.update)
 orderRoutes.delete('/:id', OrderController.delete)

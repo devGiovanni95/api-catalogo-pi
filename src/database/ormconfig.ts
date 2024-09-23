@@ -6,9 +6,14 @@ import { join } from 'path';
 dotenv.config();
 
 const dataBase = new DataSource({
-    type: 'sqlite',
-    database: process.env.DATABASE || './src/database/database.sqlite',
-//    database: process.env.DATABASE || './dist/database/database.sqlite',    
+    // type: 'sqlite',
+    type: 'postgres',
+    url: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false, // Altere para true em produção, se você estiver usando um certificado válido
+  },
+    // database: process.env.DATABASE || './src/database/database.sqlite',
+//  database: process.env.DATABASE || './dist/database/database.sqlite',    
     entities: [
       join(__dirname, '..', 'models/*.{ts,js}')
     ],
