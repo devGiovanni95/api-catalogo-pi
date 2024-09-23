@@ -79,6 +79,46 @@ export default class OrderController {
     return res.json(orders);
   }
 
+  static async findAllByUser(req: Request, res: Response) {
+    const userId = req.params.userId; // Assume que o ID do cliente vem da URL
+  
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+  
+    // Converte userId para number, se necessário
+    const userIdNumber = Number(userId);
+  
+    const user = await User.findOneBy({ id: userIdNumber });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+
+    // if (isNaN(userIdNumber)) {
+    //   return res.status(400).json({ error: 'Invalid User ID format' });
+    // }
+  
+    try {
+      const orders = await Order.find({
+        //@ts-ignore
+        where: {
+          user: user.id, // Supondo que user é um número
+        },
+        relations: ['user', 'orderItems', 'orderItems.product'],
+      });
+  
+      if (orders.length === 0) {
+        return res.status(404).json({ message: 'No orders found for this user' });
+      }
+  
+      return res.json(orders);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'An error occurred while retrieving orders' });
+    }
+  }
+
   // Retorna um pedido específico pelo ID com detalhes dos itens
   static async findById(req: Request, res: Response) {
     const { id } = req.params;
