@@ -36,14 +36,24 @@ export async function tratamento(req:any, res:any, next:any) {
           Key: req.imagemTratada[i].originalname,
         },
         (err:any, data:any) => {
-            console.log(data);
-            urlImagem = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${data.Key}`
+            // console.log(data);
+            // urlImagem = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${data.Key}`
           if (err) {
             return console.log(err);
-          }else{
-          console.log("🚀 ~ file: uploadConfig.ts:37 ~ enviarAWS ~ urlImagem:", urlImagem)
-          return urlImagem
           }
+
+                // Verifica se data existe antes de acessar Key
+                if (data && data.Key) {
+                  const urlImagem = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${data.Key}`;
+                  console.log("URL da imagem:", urlImagem);
+                  req.urlImagem = urlImagem; // Armazena a URL no objeto da requisição
+              } else {
+                  console.error("Upload bem-sucedido, mas sem dados retornados:", data);
+              }
+          // else{
+          // console.log("🚀 ~ file: uploadConfig.ts:37 ~ enviarAWS ~ urlImagem:", urlImagem)
+          // return urlImagem
+          // }
         }
       );
     }
