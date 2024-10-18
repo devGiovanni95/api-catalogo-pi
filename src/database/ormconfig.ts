@@ -9,9 +9,10 @@ const dataBase = new DataSource({
     // type: 'sqlite',
     type: 'postgres',
     url: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false, // Altere para true em produção, se você estiver usando um certificado válido
-  },
+  //   ssl: {
+  //     rejectUnauthorized: false, // Altere para true em produção, se você estiver usando um certificado válido
+  // },
+  ssl: false,
     // database: process.env.DATABASE || './src/database/database.sqlite',
 //  database: process.env.DATABASE || './dist/database/database.sqlite',    
     entities: [
