@@ -208,7 +208,7 @@ export default class ProductController {
     const product = await Product.getRepository()
           .createQueryBuilder()
           .select()
-          .where("product.categoryId = :categoryId",{categoryId})
+          .where("Product.categoryId = :categoryId",{categoryId})
           .getMany()
     if(product.length == 0){
       return res.status(200).json({ message: "Nenhum produto encontrado" });
